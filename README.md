@@ -282,7 +282,7 @@ The project supports two types of users.
 
 # Author
 
-**J. Chaitanya Krishna**
+**J. Jaswanth Krishna**
 
 Python Full Stack Developer
 
