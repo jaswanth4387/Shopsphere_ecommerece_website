@@ -15,7 +15,7 @@ def get_db():
 
         user='root',
 
-        password='MySql@123',
+        password='',
 
         database='ShopSphere'
 
@@ -29,7 +29,7 @@ import razorpay
 mydb = connection.MySQLConnection(
     host='localhost',
     user='root',
-    password='MySql@123',
+    password='',
     database='ShopSphere'
 )
 
@@ -40,7 +40,7 @@ print(UPLOAD_FOLDER)
 ALLOWED_EXETENSIONS={"png",'jpeg',"jpg",'webp','gif'} #allowing only certain exts
 MAX_CONTENT_LENGTH=6*1024*1024  #MB #accepting only 6mb file
 os.makedirs(UPLOAD_FOLDER,exist_ok=True)
-client = razorpay.Client(auth=("rzp_test_T7jGp4Wq6s8Bc5", "YvHX2jswadi6FNWfe6zKkXYD"))
+client = razorpay.Client(auth=("", ""))
 app=Flask(__name__)
 bcrypt=Bcrypt(app)
 app.secret_key="code9090"
