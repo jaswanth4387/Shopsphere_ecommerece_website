@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>forgot-ShopSphere</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="static/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/images/favicon-16x16.png">
+    <link rel="manifest" href="static/images/site.webmanifest">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                linear-gradient(rgba(207, 208, 209, 0.85),
+                    rgba(215, 220, 232, 0.85)),
+                url('/static/images/background.png') center/cover no-repeat;
+
+            background-size: cover;
+            background-position: center;
+
+        }
+
+        .background-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(3px);
+            z-index: -1;
+        }
+
+        .navbar {
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: white;
+        }
+
+        .logo img {
+            width: 55px;
+            height: 55px;
+        }
+
+        .forgot-container {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 45% 55%;
+            align-items: center;
+            gap: 50px;
+            padding: 40px 8%;
+        }
+
+        .left-panel {
+            color: white;
+        }
+
+        .brand-logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #fbbf24;
+            margin-bottom: 25px;
+        }
+
+        .left-panel h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .left-panel p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 500px;
+        }
+
+        .features {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            font-size: 1.1rem;
+        }
+
+        .right-panel {
+            display: flex;
+            justify-content: center;
+        }
+
+        .forgot-card {
+            width: 100%;
+            max-width: 500px;
+
+            background: rgba(255, 255, 255, .08);
+            backdrop-filter: blur(18px);
+
+            border: 1px solid rgba(255, 255, 255, .15);
+
+            border-radius: 24px;
+
+            padding: 40px;
+
+            box-shadow: 0 20px 50px rgba(0, 0, 0, .35);
+        }
+
+        .forgot-card h2 {
+            color: white;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #d1d5db;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .custom-input {
+            width: 100%;
+            height: 55px;
+            border: none;
+            border-radius: 12px;
+            padding: 0 15px;
+
+            background: rgba(255, 255, 255, .12);
+            color: white;
+        }
+
+        .custom-input::placeholder {
+            color: #d1d5db;
+        }
+
+        .custom-input:focus {
+            outline: none;
+            border: 1px solid #fbbf24;
+        }
+
+        .forgot-btn {
+            width: 100%;
+            height: 55px;
+            margin-top: 20px;
+
+            border: none;
+            border-radius: 12px;
+
+            background: linear-gradient(135deg,
+                    #fbbf24,
+                    #f59e0b);
+
+            color: #071330;
+            font-weight: 700;
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .links a {
+            color: #fbbf24;
+            text-decoration: none;
+        }
+
+        @media(max-width:900px) {
+
+            .forgot-container {
+                grid-template-columns: 1fr;
+            }
+
+            .left-panel {
+                text-align: center;
+            }
+
+            .forgot-card {
+                max-width: 100%;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="background-overlay"></div>
+
+    <nav class="navbar">
+        <div class="logo">
+            <a href="{{url_for('home')}}">
+                <img src="/static/images/ShopSphere.jpeg" alt="ShopSphere Logo">
+            </a>
+            <span>ShopSphere</span>
+        </div>
+    </nav>
+
+
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+
+    <div class="flash-container">
+        {% for message in messages %}
+        <div class="alert alert-warning">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="forgot-container">
+
+        <div class="left-panel">
+
+            <img src="/static/images/ShopSphere.jpeg" class="brand-logo">
+
+            {% if role=='admin' %}
+            <h1>Admin Password Recovery</h1>
+            {% else %}
+            <h1>Forgot Password?</h1>
+            {% endif %}
+            <p>
+                Recover your account securely using
+                email verification and OTP validation.
+            </p>
+
+            <div class="features">
+                <div>🔒 Secure Recovery</div>
+                <div>📧 OTP Verification</div>
+                <div>⚡ Quick Access</div>
+            </div>
+
+        </div>
+
+        <div class="right-panel">
+
+            <div class="forgot-card">
+
+                {% if role=='admin' %}
+                <h2>Admin Recovery</h2>
+                {% else %}
+                <h2>Password Recovery</h2>
+                {% endif %}
+                <p class="subtitle">
+                    Enter your registered email address
+                </p>
+
+                <form method="POST">
+
+                    <input type="email" name="email" class="custom-input" placeholder="Email Address" required>
+
+                    <button class="forgot-btn">
+                        Send OTP
+                    </button>
+
+                </form>
+
+                <div class="links">
+                    <a href="{{url_for('login', role=role)}}">
+                         Back to Login
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+</body>
+
+</html>

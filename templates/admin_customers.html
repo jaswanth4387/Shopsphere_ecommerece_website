@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="{{url_for('static', filename='images/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{url_for('static', filename='images/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{url_for('static', filename='images/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{url_for('static', filename='images/site.webmanifest')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+
+            background: #f3f4f6;
+
+            min-height: 100vh;
+
+            overflow-x: hidden;
+        }
+
+
+        /* ================= CONTAINER ================= */
+
+        .dashboard-container {
+
+            display: flex;
+        }
+
+
+        /* ================= SIDEBAR ================= */
+        /* ===== SIDEBAR ===== */
+
+        .sidebar {
+
+            width: 260px;
+
+            background: #071330;
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            bottom: 0;
+
+            overflow-y: auto;
+
+            transition: .35s ease;
+
+            z-index: 1000;
+        }
+
+
+        /* Default collapsed */
+
+        .sidebar.collapsed {
+
+            width: 90px;
+        }
+
+
+        /* Toggle button */
+
+        .toggle-btn {
+
+            position: absolute;
+
+            top: 18px;
+
+            right: 20px;
+
+            width: 45px;
+
+            height: 45px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: #fbbf24;
+
+            color: #071330;
+
+            cursor: pointer;
+
+            font-size: 18px;
+
+            transition: .3s;
+        }
+
+
+        .toggle-btn:hover {
+
+            transform: rotate(90deg);
+        }
+
+
+        /* Header */
+
+        .sidebar-header {
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            margin-top: 80px;
+
+            margin-bottom: 40px;
+        }
+
+
+        .sidebar-logo {
+
+            width: 95px;
+
+            height: 95px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            border: 3px solid #fbbf24;
+        }
+
+
+        .sidebar-header h3 {
+
+            color: white;
+
+            margin-top: 15px;
+
+            font-size: 28px;
+        }
+
+
+        .sidebar-header span {
+
+            color: #fbbf24;
+
+            font-size: 14px;
+        }
+
+
+        /* Menu */
+
+        .sidebar-menu {
+
+            display: flex;
+
+            flex-direction: column;
+
+            padding: 20px;
+
+            gap: 12px;
+        }
+
+
+        .sidebar-menu a {
+
+            height: 55px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 0 18px;
+
+            border-radius: 14px;
+
+            text-decoration: none;
+
+            color: white;
+
+            font-weight: 600;
+
+            transition: .3s;
+        }
+
+
+        .sidebar-menu a i {
+
+            font-size: 18px;
+
+            min-width: 25px;
+
+            text-align: center;
+        }
+
+
+        .sidebar-menu a:hover {
+
+            background: #fbbf24;
+
+            color: #071330;
+        }
+
+
+        .sidebar-menu a.active {
+
+            background: #fbbf24;
+
+            color: #071330;
+        }
+
+
+        /* Logout */
+
+        .logout-link {
+
+            color: #ef4444 !important;
+        }
+
+
+        .logout-link:hover {
+
+            background: #ef4444 !important;
+
+            color: white !important;
+        }
+
+
+        /* Collapsed Mode */
+
+        .sidebar.collapsed .sidebar-header h3,
+
+        .sidebar.collapsed .sidebar-header span {
+
+            display: none;
+        }
+
+
+        .sidebar.collapsed .sidebar-logo {
+
+            width: 55px;
+
+            height: 55px;
+        }
+
+
+        .sidebar.collapsed .sidebar-menu a {
+
+            justify-content: center;
+
+            padding: 0;
+        }
+
+
+        .sidebar.collapsed .sidebar-menu a span {
+
+            display: none;
+        }
+
+
+        /* Scrollbar */
+
+        .sidebar::-webkit-scrollbar {
+
+            width: 6px;
+        }
+
+
+        .sidebar::-webkit-scrollbar-thumb {
+
+            background: #fbbf24;
+
+            border-radius: 10px;
+        }
+
+        .main-content {
+
+            margin-left: 260px;
+
+            width: calc(100% - 260px);
+
+            min-height: 100vh;
+
+            padding: 40px;
+
+            transition: .35s ease;
+        }
+
+
+        .main-content.expanded {
+
+            margin-left: 90px;
+
+            width: calc(100% - 90px);
+        }
+
+        .search-box {
+
+            width: 420px;
+
+            display: flex;
+
+            margin-bottom: 30px;
+
+            box-shadow:
+
+                0 8px 25px rgba(0, 0, 0, .08);
+        }
+
+
+        .search-box input {
+
+            width: 100%;
+
+            height: 58px;
+
+            border: none;
+
+            outline: none;
+
+            padding: 0 25px;
+
+            font-size: 16px;
+
+            border-radius: 18px 0 0 18px;
+
+            background: white;
+        }
+
+
+        .search-box input::placeholder {
+
+            color: #94a3b8;
+        }
+
+
+        .search-box button {
+
+            width: 70px;
+
+            border: none;
+
+            cursor: pointer;
+
+            background: #fbbf24;
+
+            color: #071330;
+
+            border-radius: 0 18px 18px 0;
+
+            font-size: 20px;
+
+            transition: .3s;
+        }
+
+
+        .search-box button:hover {
+
+            background: #eab308;
+        }
+
+        /* ================= TOP BAR ================= */
+
+        .top-bar {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 25px;
+        }
+
+
+        .top-bar h1 {
+
+            font-size: 38px;
+
+            font-weight: 700;
+
+            color: #071330;
+        }
+
+
+
+        .customer-table {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 20px;
+
+            box-shadow:
+
+                0 10px 30px rgba(0, 0, 0, .08);
+
+            overflow-x: auto;
+        }
+
+
+        .customer-table {
+
+            background: white;
+
+            border-radius: 25px;
+
+            overflow: hidden;
+
+            box-shadow:
+
+                0 15px 40px rgba(0, 0, 0, .08);
+        }
+
+
+        /* table */
+
+        .customer-table table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+        }
+
+
+        /* header */
+
+        .customer-table thead {
+
+            background: #071330;
+        }
+
+
+        .customer-table th {
+
+            color: white;
+
+            padding: 22px;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            text-align: left;
+        }
+
+
+        /* rows */
+
+        .customer-table td {
+
+            padding: 22px;
+
+            border-bottom:
+
+                1px solid #eef2f7;
+
+            font-size: 15px;
+
+            color: #334155;
+        }
+
+
+        .customer-table tbody tr {
+
+            transition: .25s;
+        }
+
+
+        .customer-table tbody tr:hover {
+
+            background: #f8fafc;
+
+            transform: scale(1.003);
+        }
+
+
+        /* expenditure */
+
+        .customer-table td:last-child {
+
+            color: #16a34a;
+
+            font-weight: 700;
+        }
+
+
+        /* orders */
+
+        .customer-table td:nth-child(3) {
+
+            font-weight: 700;
+
+            color: #2563eb;
+        }
+
+
+        /* zebra rows */
+
+        .customer-table tbody tr:nth-child(even) {
+
+            background: #fafafa;
+        }
+
+        .summary-grid {
+
+            display: grid;
+
+            grid-template-columns:
+
+                repeat(3, 1fr);
+
+            gap: 25px;
+
+            margin-bottom: 30px;
+        }
+
+
+        .summary-card {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 22px;
+
+            box-shadow:
+
+                0 10px 30px rgba(0, 0, 0, .08);
+        }
+
+
+        .summary-card h2 {
+
+            font-size: 34px;
+
+            color: #071330;
+        }
+
+
+        .summary-card span {
+
+            color: #64748b;
+        }
+
+        @media(max-width:900px) {
+
+            .search-box {
+
+                width: 100%;
+            }
+
+            .summary-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+            .customer-table {
+
+                overflow-x: auto;
+            }
+
+        }
+
+
+        @media(max-width:768px) {
+
+            .main-content {
+
+                padding: 20px;
+            }
+
+            .top-bar h1 {
+
+                font-size: 28px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar collapsed" id="sidebar">
+
+            <button class="toggle-btn" id="toggleBtn">
+
+                ☰
+
+            </button>
+
+
+            <div class="sidebar-header">
+
+                <img src="/static/images/ShopSphere.jpeg" class="sidebar-logo">
+
+                <h3>ShopSphere</h3>
+
+                <span>Admin Panel</span>
+
+            </div>
+
+
+            <div class="sidebar-menu">
+
+                <a href="{{url_for('admindashboard')}}">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    <span>Dashboard</span>
+
+                </a>
+
+
+                <a href="{{url_for('additem')}}">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    <span>Add Product</span>
+
+                </a>
+
+
+                <a href="{{url_for('viewallitems')}}">
+
+                    <i class="fa-solid fa-box"></i>
+
+                    <span>Products</span>
+
+                </a>
+
+
+                <a href="{{url_for('adminorders')}}">
+
+                    <i class="fa-solid fa-cart-shopping"></i>
+
+                    <span>Orders</span>
+
+                </a>
+
+
+                <a href="{{url_for('admincustomers')}}" class="active">
+
+                    <i class="fa-solid fa-users"></i>
+
+                    <span>Customers</span>
+
+                </a>
+
+
+                <a href="{{url_for('adminlogout')}}">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    <span>Logout</span>
+
+                </a>
+
+            </div>
+
+        </aside>
+
+
+
+        <div class="main-content expanded" id="mainContent">
+
+
+            <div class="top-bar">
+
+                <h1>
+
+                    Customers
+
+                </h1>
+                <div class="summary-grid">
+
+                    <div class="summary-card">
+
+                        <h2>
+
+                            {{customers|length}}
+
+                        </h2>
+
+                        <span>
+
+                            Customers
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="summary-card">
+
+                        <h2>
+
+                            {{total_orders}}
+
+                        </h2>
+
+                        <span>
+
+                            Orders
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="summary-card">
+
+                        <h2>
+
+                            ₹{{total_revenue}}
+
+                        </h2>
+
+                        <span>
+
+                            Revenue
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="search-box">
+
+                <input type="search" name="search" value="{{search}}" placeholder="Search customer">
+
+
+                <button>
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                </button>
+
+            </div>
+
+
+            <div class="customer-table">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Name</th>
+
+                            <th>Phone</th>
+
+                            <th>Orders</th>
+
+                            <th>Expenditure</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for c in customers %}
+
+                        <tr>
+
+                            <td>
+
+                                {{c[1]}}
+
+                            </td>
+
+
+                            <td>
+
+                                {{c[2]}}
+
+                            </td>
+
+
+                            <td>
+
+                                {{c[3]}}
+
+                            </td>
+
+
+                            <td>
+
+                                ₹{{c[4]}}
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script>
+
+        const sidebar = document.getElementById('sidebar')
+
+        const main = document.getElementById('mainContent')
+
+        const btn = document.getElementById('toggleBtn')
+
+        btn.addEventListener('click', () => {
+
+            sidebar.classList.toggle('collapsed')
+
+            main.classList.toggle('expanded')
+
+        })
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login-ShopSphere</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="static/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/images/favicon-16x16.png">
+    <link rel="manifest" href="static/images/site.webmanifest">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                linear-gradient(rgba(207, 208, 209, 0.85),
+                    rgba(215, 220, 232, 0.85)),
+                url('/static/images/background.png') center/cover no-repeat;
+
+            background-size: cover;
+            background-position: center;
+
+        }
+
+        .background-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(3px);
+            z-index: -1;
+        }
+
+        .navbar {
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        .logo span {
+            color: white;
+        }
+
+        .signup-container {
+            min-height: 100vh;
+            display;
+        }
+
+        .signup-left {
+            flex: 1;
+            color;
+            display;
+            flex-direction;
+            justify-content;
+            padding: 60px;
+        }
+
+        .brand-logo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .signup-left h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .signup-left p {
+            max-width: 500px;
+            line-height: 1.8;
+            opacity: .9;
+        }
+
+        .feature-list {
+            margin-top: 30px;
+        }
+
+        .feature-list div {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .signup-right {
+            flex: 1;
+            display;
+            justify-content;
+            align-items;
+            padding: 40px;
+        }
+
+        .signup-card {
+            width: 100%;
+            max-width: 500px;
+            background(255, 255, 255, .1);
+            backdrop-filter(20px);
+            border: 1px solid rgba(255, 255, 255, .2);
+            border-radius: 25px;
+            padding: 40px;
+            color;
+        }
+
+        .signup-card h2 {
+            text-align;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align;
+            opacity: .8;
+            margin-bottom: 30px;
+        }
+
+        .login-wrapper {
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .left-panel {
+            flex: 1;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+        }
+
+        .brand-logo {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 4px solid #fbbf24;
+            margin-bottom: 25px;
+        }
+
+        .left-panel h1 {
+            font-size: 3.8rem;
+            font-weight: 700;
+        }
+
+        .left-panel p {
+            margin-top: 15px;
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 550px;
+        }
+
+        .features {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            font-size: 1.1rem;
+        }
+
+        .right-panel {
+            width: 520px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .login-card {
+            width: 100%;
+            background: rgba(255, 255, 255, .08);
+            backdrop-filter: blur(18px);
+            border-radius: 25px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, .15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .35);
+            transition: .4s;
+        }
+
+        .login-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .login-card h2 {
+            color: white;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #d1d5db;
+            margin-bottom: 25px;
+        }
+
+        .input-group-custom {
+            position: relative;
+            margin-bottom: 18px;
+        }
+
+        .input-group-custom input {
+            width: 100%;
+            height: 55px;
+            border: none;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, .12);
+            color: white;
+            padding: 0 15px;
+        }
+
+        .input-group-custom input::placeholder {
+            color: #d1d5db;
+        }
+
+        .input-group-custom input:focus {
+            outline: none;
+            border: 1px solid #fbbf24;
+            box-shadow: 0 0 0 4px rgba(251, 191, 36, .15);
+        }
+
+        #togglePassword {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 14px;
+        }
+
+        .options a {
+            color: #fbbf24;
+            text-decoration: none;
+        }
+
+        .login-btn {
+            width: 100%;
+            height: 55px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg,
+                    #fbbf24,
+                    #f59e0b);
+            color: #071330;
+            font-weight: 700;
+            transition: .3s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .signup-link {
+            margin-top: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .signup-link a {
+            color: #fbbf24;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .flash-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            width: 350px;
+        }
+
+        .alert {
+            border-radius: 12px;
+        }
+
+        @media(max-width:900px) {
+
+            ``` .left-panel {
+                display: none;
+            }
+
+            .right-panel {
+                width: 100%;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+
+    <div class="flash-container">
+        {% for message in messages %}
+        <div class="alert alert-warning">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+    <div class="background-overlay"></div>
+
+    <nav class="navbar">
+        <div class="logo">
+            <a href="{{url_for('home')}}">
+                <img src="/static/images/ShopSphere.jpeg" alt="ShopSphere Logo">
+            </a>
+            <span>ShopSphere</span>
+        </div>
+    </nav>
+
+    <div class="login-wrapper">
+
+        ```
+        <!-- Left Panel -->
+        <div class="left-panel">
+
+
+            {% if role == 'admin' %}
+
+            <h1>Admin Portal</h1>
+
+            <p>
+                Manage products, orders, customers and
+                monitor business performance.
+            </p>
+
+            <div class="features">
+                <span>📦 Product Management</span>
+                <span>🛒 Order Tracking</span>
+                <span>👥 Customer Management</span>
+                <span>📊 Business Analytics</span>
+            </div>
+
+            {% else %}
+
+            <h1>Welcome Back</h1>
+
+            <p>
+                Login and continue your shopping journey
+                with ShopSphere.
+            </p>
+
+            <div class="features">
+                <span>🚚 Fast Delivery</span>
+                <span>🔒 Secure Payments</span>
+                <span>⭐ Premium Products</span>
+                <span>↩ Easy Returns</span>
+            </div>
+
+            {% endif %}
+
+        </div>
+
+        <!-- Right Panel -->
+        <div class="right-panel">
+
+            <div class="login-card">
+
+                {% if role == 'admin' %}
+                <h2>Administrator Login</h2>
+                <p class="subtitle">
+                    Authorized Personnel Only
+                </p>
+                {% else %}
+                <h2>Login to Account</h2>
+                <p class="subtitle">
+                    Continue Shopping with ShopSphere
+                </p>
+                {% endif %}
+
+                <form method="POST">
+
+                    <div class="input-group-custom">
+
+                        <input type="email" name="email" placeholder="Email Address" required>
+
+                    </div>
+
+                    <div class="input-group-custom">
+
+                        <input type="password" id="password" name="password" placeholder="Password" required>
+
+                        <span id="togglePassword">
+                            👁
+                        </span>
+
+                    </div>
+
+                    <div class="options">
+
+                        <label>
+                            <input type="checkbox">
+                            Remember Me
+                        </label>
+
+                        <a href="{{url_for('forgot', role=role)}}">
+                            Forgot Password?
+                        </a>
+                    </div>
+
+                    <button type="submit" class="login-btn">
+
+                        {% if role == 'admin' %}
+                        Access Dashboard
+                        {% else %}
+                        Login
+                        {% endif %}
+
+                    </button>
+
+                </form>
+
+                <div class="signup-link">
+
+                    {% if role == 'admin' %}
+
+                    Need an admin account?
+
+                    <a href="{{url_for('signup',role='admin')}}">
+                        Create Admin Account
+                    </a>
+
+                    {% else %}
+
+                    New to ShopSphere?
+
+                    <a href="{{url_for('signup',role='user')}}">
+                        Create Account
+                    </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <script>
+
+        const password = document.getElementById("password");
+        const toggle = document.getElementById("togglePassword");
+
+        toggle.addEventListener("click", function () {
+
+            if (password.type === "password") {
+                password.type = "text";
+            }
+            else {
+                password.type = "password";
+            }
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>

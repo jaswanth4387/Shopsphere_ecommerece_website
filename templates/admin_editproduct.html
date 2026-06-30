@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit_product</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="{{url_for('static', filename='images/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{url_for('static', filename='images/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{url_for('static', filename='images/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{url_for('static', filename='images/site.webmanifest')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        /* ===================================
+        GOOGLE FONT
+=================================== */
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+
+            background: #eef2f7;
+
+            color: #071330;
+
+            overflow-x: hidden;
+        }
+
+        /* ===================================
+            HEADER
+=================================== */
+
+        .page-header {
+
+            margin-bottom: 40px;
+
+            border-bottom: 1px solid #dbe4ee;
+
+            padding-bottom: 20px;
+        }
+
+        .page-header h1 {
+
+            font-size: 42px;
+
+            font-weight: 700;
+
+            margin-top: 8px;
+
+            color: #071330;
+        }
+
+        .page-header p {
+
+            color: #64748b;
+
+            font-size: 17px;
+
+            margin-top: 8px;
+        }
+
+        .breadcrumb {
+
+            display: flex;
+
+            gap: 12px;
+
+            align-items: center;
+
+            font-size: 15px;
+
+            margin-bottom: 10px;
+        }
+
+        .breadcrumb a {
+
+            text-decoration: none;
+
+            color: #64748b;
+
+            transition: .3s;
+        }
+
+        .breadcrumb a:hover {
+
+            color: #f59e0b;
+        }
+
+        /* ===================================
+          STATUS BADGE
+=================================== */
+
+        .status {
+
+            padding: 12px 24px;
+
+            border-radius: 40px;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+        .active {
+
+            background: #dcfce7;
+
+            color: #15803d;
+        }
+
+        .out {
+
+            background: #fee2e2;
+
+            color: #dc2626;
+        }
+
+        /* ===================================
+          MAIN CARD
+=================================== */
+
+        .edit-card {
+
+            display: grid;
+
+            grid-template-columns: 360px minmax(900px, 1fr);
+
+            gap: 50px;
+
+            align-items: start;
+
+            background: white;
+
+            border-radius: 30px;
+
+            padding: 40px;
+
+            box-shadow:
+
+                0 20px 40px rgba(0, 0, 0, .08);
+        }
+
+        /* ===================================
+        LEFT PANEL
+=================================== */
+
+        .left-panel {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 30px;
+        }
+
+        .image-card {
+
+            background: #f8fafc;
+
+            border-radius: 25px;
+
+            padding: 30px;
+
+            text-align: center;
+
+            box-shadow:
+
+                inset 0 0 0 1px #e2e8f0;
+        }
+
+        .product-image {
+
+            width: 100%;
+
+            height: 300px;
+
+            object-fit: contain;
+
+            background: white;
+
+            border-radius: 20px;
+
+            padding: 20px;
+
+            box-shadow:
+
+                0 10px 25px rgba(0, 0, 0, .08);
+        }
+
+        .image-card h3 {
+
+            margin-top: 25px;
+
+            font-size: 22px;
+
+            font-weight: 700;
+        }
+
+        .image-card p {
+
+            margin-top: 8px;
+
+            color: #64748b;
+        }
+
+        /* ===================================
+        SUMMARY CARD
+=================================== */
+
+        .summary-card {
+
+            background: #071330;
+
+            color: white;
+
+            border-radius: 25px;
+
+            padding: 30px;
+        }
+
+        .summary-card h4 {
+
+            margin-bottom: 25px;
+
+            color: #fbbf24;
+
+            font-size: 22px;
+        }
+
+        .summary-item {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            padding: 15px 0;
+
+            border-bottom: 1px solid rgba(255, 255, 255, .12);
+        }
+
+        .summary-item:last-child {
+
+            border: none;
+        }
+
+        .summary-item span {
+
+            color: #cbd5e1;
+        }
+
+        .summary-item strong {
+
+            color: white;
+        }
+
+        /* ===================================
+         RIGHT PANEL
+=================================== */
+
+        .right-panel {
+
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===================================
+       SECTION TITLE
+=================================== */
+
+        .section-title {
+
+            font-size: 22px;
+
+            font-weight: 700;
+
+            margin-bottom: 30px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            color: #071330;
+        }
+
+        .section-title i {
+
+            color: #fbbf24;
+        }
+
+        /* ===================================
+            LABELS
+=================================== */
+
+        label {
+
+            display: block;
+
+            margin-bottom: 10px;
+
+            font-size: 17px;
+
+            font-weight: 700;
+
+            color: #071330;
+        }
+
+        /* ===================================
+            INPUTS
+=================================== */
+
+        .form-control,
+
+        .form-select {
+
+            height: 60px;
+            width: 100%;
+
+            padding: 16px 20px;
+
+            font-size: 17px;
+
+            border-radius: 16px;
+
+            border-radius: 15px;
+
+            border: 1px solid #d1d5db;
+
+            font-size: 16px;
+
+            box-shadow: none;
+
+            transition: .3s;
+        }
+
+        .form-control:focus,
+
+        .form-select:focus {
+
+            border-color: #fbbf24;
+
+            box-shadow:
+
+                0 0 0 .25rem rgba(251, 191, 36, .20);
+        }
+
+        textarea.form-control {
+
+            width: 100%;
+
+            min-height: 180px;
+
+            padding: 20px;
+
+            font-size: 16px;
+
+            line-height: 1.8;
+
+            resize: vertical;
+        }
+
+        .form-control::placeholder {
+
+            color: #94a3b8;
+        }
+
+        /* ===================================
+        FILE INPUT
+=================================== */
+
+        input[type=file] {
+
+            padding: 14px;
+        }
+
+        /* ===================================
+            BUTTONS
+=================================== */
+
+        .button-area {
+
+            display: flex;
+
+            gap: 18px;
+
+            margin-top: 40px;
+
+            flex-wrap: wrap;
+        }
+
+        .save-btn {
+
+            flex: 1;
+
+            height: 58px;
+
+            border: none;
+
+            border-radius: 16px;
+
+            background: #fbbf24;
+
+            color: #071330;
+
+            font-size: 17px;
+
+            font-weight: 700;
+
+            transition: .3s;
+        }
+
+        .save-btn:hover {
+
+            background: #d97706;
+
+            color: white;
+
+            transform: translateY(-2px);
+        }
+
+        .cancel-btn {
+
+            flex: 1;
+
+            height: 58px;
+
+            background: #64748b;
+
+            color: white;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            border-radius: 16px;
+
+            text-decoration: none;
+
+            font-weight: 700;
+
+            transition: .3s;
+        }
+
+        .cancel-btn:hover {
+
+            background: #475569;
+
+            color: white;
+
+            transform: translateY(-2px);
+        }
+
+        .delete-btn {
+
+            flex: 1;
+
+            height: 58px;
+
+            background: #dc2626;
+
+            color: white;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            border-radius: 16px;
+
+            text-decoration: none;
+
+            font-weight: 700;
+
+            transition: .3s;
+        }
+
+        .delete-btn:hover {
+
+            background: #b91c1c;
+
+            color: white;
+
+            transform: translateY(-2px);
+        }
+
+        .button-area i {
+
+            margin-right: 10px;
+        }
+
+        /* ===================================
+        ANIMATIONS
+=================================== */
+
+        .image-card,
+
+        .summary-card,
+
+        .edit-card {
+
+            animation: fadeUp .5s ease;
+        }
+
+        @keyframes fadeUp {
+
+            from {
+
+                opacity: 0;
+
+                transform: translateY(25px);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform: translateY(0);
+            }
+        }
+
+        /* ===================================
+      RESPONSIVE
+=================================== */
+
+        @media(max-width:1100px) {
+
+            .edit-card {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .left-panel {
+
+                order: 2;
+
+            }
+
+            .right-panel {
+
+                order: 1;
+
+            }
+
+        }
+
+        @media(max-width:768px) {
+
+            .page-header {
+
+                flex-direction: column;
+
+                align-items: flex-start !important;
+
+                gap: 20px;
+
+            }
+
+            .page-header h1 {
+
+                font-size: 32px;
+
+            }
+
+            .button-area {
+
+                flex-direction: column;
+
+            }
+
+            .save-btn,
+
+            .cancel-btn,
+
+            .delete-btn {
+
+                width: 100%;
+
+            }
+
+            .product-image {
+
+                height: 240px;
+
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container-fluid py-4">
+
+        <!-- ================= HEADER ================= -->
+
+        <div class="page-header d-flex justify-content-between align-items-center mb-4">
+
+            <div>
+
+                <div class="breadcrumb">
+
+                    <a href="{{url_for('admindashboard')}}">Dashboard</a>
+
+                    <span>/</span>
+
+                    <a href="{{url_for('viewallitems')}}">Products</a>
+
+                    <span>/</span>
+
+                    <strong>Edit Product</strong>
+
+                </div>
+
+                <h1>Edit Product</h1>
+
+                <p>Update product information, inventory and pricing.</p>
+
+            </div>
+
+            <div>
+
+                {% if product[5] > 0 %}
+
+                <span class="status active">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    Active
+
+                </span>
+
+                {% else %}
+
+                <span class="status out">
+
+                    <i class="fa-solid fa-circle-xmark"></i>
+
+                    Out of Stock
+
+                </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <!-- ================= CARD ================= -->
+
+        <div class="edit-card">
+
+            <!-- LEFT SIDE -->
+
+            <div class="left-panel">
+
+                <div class="image-card">
+
+                    <img src="{{url_for('static',filename='images/' ~ product[7])}}" id="previewImage"
+                        class="product-image">
+
+                    <h3>
+
+                        Current Product Image
+
+                    </h3>
+
+                    <p>
+
+                        Upload a new image if required.
+
+                    </p>
+
+                </div>
+
+                <div class="summary-card">
+
+                    <h4>
+
+                        Product Summary
+
+                    </h4>
+
+                    <div class="summary-item">
+
+                        <span>Category</span>
+
+                        <strong>
+
+                            {{product[6]}}
+
+                        </strong>
+
+                    </div>
+
+                    <div class="summary-item">
+
+                        <span>Price</span>
+
+                        <strong>
+
+                            ₹{{product[4]}}
+
+                        </strong>
+
+                    </div>
+
+                    <div class="summary-item">
+
+                        <span>Available Stock</span>
+
+                        <strong>
+
+                            {{product[5]}} Units
+
+                        </strong>
+
+                    </div>
+
+                    <div class="summary-item">
+
+                        <span>Created</span>
+
+                        <strong>
+
+                            {{product[9]}}
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT SIDE -->
+
+            <div class="right-panel">
+
+                <form method="POST" enctype="multipart/form-data">
+
+                    <!-- PRODUCT INFO -->
+
+                    <div class="section-title">
+
+                        <i class="fa-solid fa-box"></i>
+
+                        Product Information
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label>
+
+                            Product Name
+
+                        </label>
+
+                        <input type="text" name="item_name" class="form-control" value="{{product[1]}}" required>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label>
+
+                            Description
+
+                        </label>
+
+                        <textarea class="form-control" name="item_description" rows="5"
+                            required>{{product[2]}}</textarea>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label>
+
+                            About Product
+
+                        </label>
+
+                        <textarea class="form-control" name="item_about" rows="6" required>{{product[3]}}</textarea>
+
+                    </div>
+
+                    <!-- PRICE -->
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-4">
+
+                            <label>
+
+                                Price
+
+                            </label>
+
+                            <input type="number" step="0.01" class="form-control" name="item_price"
+                                value="{{product[4]}}" required>
+
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+
+                            <label>
+
+                                Quantity
+
+                            </label>
+
+                            <input type="number" class="form-control" name="item_quantity" value="{{product[5]}}"
+                                required>
+
+                        </div>
+
+                    </div>
+
+                    <!-- CATEGORY -->
+
+                    <div class="mb-4">
+
+                        <label>
+
+                            Category
+
+                        </label>
+
+                        <select class="form-select" name="item_category">
+
+                            <option value="electronics" {% if product[6]=='electronics' %}selected{% endif %}>
+                                Electronics
+                            </option>
+
+                            <option value="fashion" {% if product[6]=='fashion' %}selected{% endif %}>
+                                Fashion
+                            </option>
+
+                            <option value="grocery" {% if product[6]=='grocery' %}selected{% endif %}>
+                                Grocery
+                            </option>
+
+                            <option value="sports" {% if product[6]=='sports' %}selected{% endif %}>
+                                Sports
+                            </option>
+
+                            <option value="toys" {% if product[6]=='toys' %}selected{% endif %}>
+                                Toys
+                            </option>
+
+                            <option value="Home_Appliences" {% if product[6]=='Home_Appliences' %}selected{% endif %}>
+                                Home Appliances
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- IMAGE -->
+
+                    <div class="mb-4">
+
+                        <label>
+
+                            Change Product Image
+
+                        </label>
+
+                        <input type="file" id="imageInput" class="form-control" name="image">
+
+                    </div>
+
+                    <!-- BUTTONS -->
+
+                    <div class="button-area">
+
+                        <button type="submit" class="save-btn">
+
+                            <i class="fa-solid fa-floppy-disk"></i>
+
+                            Save Changes
+
+                        </button>
+
+                        <a href="{{url_for('viewallitems')}}" class="cancel-btn">
+
+                            <i class="fa-solid fa-arrow-left"></i>
+
+                            Back
+
+                        </a>
+
+                        <a href="{{url_for('deleteproduct',itemid=product[0] )}}" class="delete-btn"
+                            onclick="return confirm('Delete this product permanently?')">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                            Delete
+
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

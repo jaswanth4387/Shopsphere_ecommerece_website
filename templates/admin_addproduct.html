@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin_addproduct</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="{{url_for('static', filename='images/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{url_for('static', filename='images/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{url_for('static', filename='images/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{url_for('static', filename='images/site.webmanifest')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+
+            background: #f3f4f6;
+
+            min-height: 100vh;
+        }
+
+
+        .page-container {
+
+            display: grid;
+
+            grid-template-columns:
+
+                40% 60%;
+
+            min-height: 100vh;
+        }
+
+
+        /* LEFT */
+
+        .left-panel {
+
+            background: #071330;
+
+            padding: 50px;
+
+            color: white;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+        }
+
+        .logo {
+
+            width: 120px;
+
+            height: 120px;
+
+            border-radius: 50%;
+
+            border: 4px solid #fbbf24;
+
+            margin-bottom: 30px;
+        }
+
+        .left-panel h1 {
+
+            font-size: 36px;
+
+            margin-bottom: 20px;
+        }
+
+        .left-panel p {
+
+            font-size: 18px;
+
+            color: #d1d5db;
+        }
+
+        .feature-list {
+
+            margin-top: 40px;
+        }
+
+        .feature-list div {
+
+            margin-bottom: 20px;
+
+            font-size: 18px;
+        }
+
+
+        /* RIGHT */
+
+        .right-panel {
+
+            background-image: url('/static/images/background.png');
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 40px;
+        }
+
+
+        .form-card {
+
+            background: white;
+
+            width: 100%;
+
+            max-width: 700px;
+
+            padding: 40px;
+
+            border-radius: 25px;
+
+            box-shadow:
+
+                0 10px 30px rgba(0, 0, 0, .1);
+        }
+
+
+        .form-card h2 {
+
+            margin-bottom: 30px;
+        }
+
+
+        form {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 20px;
+        }
+
+
+        input,
+
+        textarea,
+
+        select {
+
+            width: 100%;
+
+            padding: 15px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 12px;
+
+            font-size: 16px;
+        }
+
+
+        textarea {
+
+            height: 120px;
+
+            resize: none;
+        }
+
+
+        .row {
+
+            display: grid;
+
+            grid-template-columns:
+
+                1fr 1fr;
+
+            gap: 20px;
+        }
+
+
+        button {
+
+            height: 55px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: #fbbf24;
+
+            font-weight: 700;
+
+            font-size: 18px;
+
+            cursor: pointer;
+
+            transition: .3s;
+        }
+
+        button:hover {
+
+            background: #d97706;
+
+            color: white;
+        }
+
+
+        /* MOBILE */
+
+        @media(max-width:900px) {
+
+            .page-container {
+
+                grid-template-columns: 1fr;
+            }
+
+            .left-panel {
+
+                padding: 40px;
+
+                text-align: center;
+            }
+
+            .row {
+
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        textarea {
+
+            width: 100%;
+
+            height: 140px;
+
+            padding: 18px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 18px;
+
+            resize: none;
+
+            outline: none;
+
+            font-size: 16px;
+
+            color: #071330;
+        }
+
+
+        textarea::placeholder {
+
+            color: #94a3b8;
+
+            font-size: 18px;
+
+            font-weight: 500;
+
+            opacity: 1;
+        }
+
+
+        input::placeholder {
+
+            color: #94a3b8;
+
+            font-size: 18px;
+
+            font-weight: 500;
+
+            opacity: 1;
+        }
+
+        .dashboard-container {
+
+            display: flex;
+
+            min-height: 100vh;
+        }
+
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+
+            width: 260px;
+
+            background: #071330;
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            bottom: 0;
+
+            padding: 25px 15px;
+
+            transition: .3s ease;
+
+            overflow: hidden;
+            overflow-y: auto;
+            scrollbar-width: thin;
+
+            scrollbar-color: #fbbf24 #071330;
+
+        }
+
+        .sidebar.collapsed {
+
+            width: 90px;
+        }
+
+
+        /* ================= TOGGLE BUTTON ================= */
+
+        .toggle-btn {
+
+            position: absolute;
+
+            top: 25px;
+
+            right: 20px;
+
+            width: 42px;
+
+            height: 42px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: #fbbf24;
+
+            font-size: 20px;
+
+            cursor: pointer;
+
+            transition: .3s;
+        }
+
+        .toggle-btn:hover {
+
+            transform: rotate(90deg);
+        }
+
+
+        /* ================= HEADER ================= */
+        .sidebar-header {
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            margin-top: 60px;
+
+            margin-bottom: 40px;
+        }
+
+        .sidebar-logo {
+
+            width: 90px;
+
+            height: 90px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            border: 3px solid #fbbf24;
+        }
+
+        .sidebar-header h3 {
+
+            color: white;
+
+            margin-top: 15px;
+
+            font-size: 28px;
+        }
+
+        .sidebar-header span {
+
+            color: #fbbf24;
+        }
+
+
+        /* ================= MENU ================= */
+
+        .sidebar-menu {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+        .sidebar-menu a {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            height: 55px;
+
+            padding: 0 18px;
+
+            border-radius: 14px;
+
+            text-decoration: none;
+
+            color: white;
+
+            font-size: 18px;
+
+            font-weight: 600;
+
+            overflow: hidden;
+        }
+
+        .sidebar-menu a:hover {
+
+            background: #fbbf24;
+
+            color: #071330;
+        }
+
+        .sidebar-menu a.active {
+
+            background: #fbbf24;
+
+            color: #071330;
+        }
+
+        .sidebar.collapsed .sidebar-header h3,
+
+        .sidebar.collapsed .sidebar-header span {
+
+            display: none;
+        }
+
+        .sidebar.collapsed .sidebar-menu a {
+
+            justify-content: center;
+
+            padding: 0;
+        }
+
+        .sidebar.collapsed .sidebar-menu a span {
+
+            display: none;
+        }
+
+        .page-container {
+
+            margin-left: 260px;
+
+            width: calc(100% - 260px);
+
+            transition: .3s ease;
+
+            display: grid;
+
+            grid-template-columns: 40% 60%;
+
+            min-height: 100vh;
+        }
+
+        .page-container.expanded {
+
+            margin-left: 90px;
+
+            width: calc(100% - 90px);
+        }
+
+        .sidebar.collapsed .sidebar-header {
+
+            margin-top: 80px;
+        }
+
+
+        .sidebar.collapsed .sidebar-logo {
+
+            width: 55px;
+
+            height: 55px;
+        }
+
+        .sidebar {
+
+            width: 260px;
+
+            background: #071330;
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            bottom: 0;
+
+            transition: .3s ease;
+
+            overflow-y: auto;
+        }
+
+
+        .sidebar.collapsed {
+
+            width: 90px;
+        }
+
+        .sidebar.collapsed h3,
+
+        .sidebar.collapsed .sidebar-header span {
+
+            display: none;
+        }
+
+
+        .sidebar.collapsed .sidebar-menu a span {
+
+            display: none;
+        }
+
+
+        .sidebar.collapsed .sidebar-menu a {
+
+            justify-content: center;
+
+            padding: 0;
+        }
+
+        .page-container {
+
+            margin-left: 260px;
+
+            width: calc(100% - 260px);
+
+            transition: .3s ease;
+
+            min-height: 100vh;
+        }
+
+
+        .page-container.expanded {
+
+            margin-left: 90px;
+
+            width: calc(100% - 90px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+
+        <!-- Sidebar -->
+
+        <aside class="sidebar collapsed" id="sidebar">
+            <button class="toggle-btn" id="toggleBtn">
+
+                ☰
+
+            </button>
+
+            <div class="sidebar-header">
+
+                <img src="/static/images/ShopSphere.jpeg" class="sidebar-logo">
+
+                <h3>ShopSphere</h3>
+
+                <span>Admin Panel</span>
+
+            </div>
+
+            <div class="sidebar-menu">
+
+                <a href="{{url_for('admindashboard')}}"">
+
+                    <i class=" fa-solid fa-house"></i>
+
+                    <span>Dashboard</span>
+
+                </a>
+
+                <a href="{{url_for('additem')}}" class="active">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    <span>Add Product</span>
+
+                </a>
+
+                <a href="{{url_for('viewallitems')}}">
+
+                    <i class="fa-solid fa-box"></i>
+
+                    <span>Products</span>
+
+                </a>
+
+                <a href="{{url_for('adminorders')}}">
+
+                    <i class="fa-solid fa-cart-shopping"></i>
+
+                    <span>Orders</span>
+
+                </a>
+
+                <a href="{{url_for('admincustomers')}}">
+
+                    <i class="fa-solid fa-users"></i>
+
+                    <span>Customers</span>
+
+                </a>
+
+                <a href="#">
+
+                    <i class="fa-solid fa-gear"></i>
+
+                    <span>Settings</span>
+
+                </a>
+                <a href="{{url_for('adminlogout')}}">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    <span>Logout</span>
+
+                </a>
+
+
+
+
+            </div>
+
+        </aside>
+
+        <div class="page-container expanded" id="mainContent">
+            <div class="left-panel">
+
+
+                <h1>
+
+                    Add New Product
+
+                </h1>
+
+                <p>
+
+                    Create products for your store inventory.
+
+                </p>
+
+                <div class="feature-list">
+
+                    <div>📦 Product Management</div>
+
+                    <div>🏷 Categories</div>
+
+                    <div>🖼 Product Images</div>
+
+                    <div>📈 Inventory Tracking</div>
+
+                </div>
+
+            </div>
+
+
+            <div class="right-panel">
+
+                <div class="form-card">
+
+                    <h2>
+
+                        Product Details
+
+                    </h2>
+
+
+                    <form method="POST" enctype="multipart/form-data">
+
+                        <input type="text" name="item_name" placeholder="Product Name" required>
+
+
+                        <textarea name="item_description" placeholder="Description" required></textarea>
+
+
+                        <textarea name="item_about" placeholder="About Product" required></textarea>
+
+
+                        <div class="row">
+
+                            <input type="number" step="0.01" name="item_price" placeholder="₹Price" required>
+
+
+                            <input type="number" name="item_quantity" placeholder="Quantity" required>
+
+                        </div>
+
+
+                        <select name="item_category" required>
+
+                            <option value="">
+
+                                Select Category
+
+                            </option>
+
+                            <option>
+
+                                electronics
+
+                            </option>
+
+                            <option>
+
+                                fashion
+
+                            </option>
+
+                            <option>
+
+                                grocery
+
+                            </option>
+
+                            <option>
+
+                                sports
+
+                            </option>
+
+                            <option>
+
+                                toys
+
+                            </option>
+
+                            <option>
+
+                                Home_Appliences
+
+                            </option>
+
+                        </select>
+
+
+                        <input type="file" name="image" required>
+
+
+                        <button>
+
+                            Add Product
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <script>
+
+        const sidebar = document.getElementById('sidebar')
+
+        const main = document.getElementById('mainContent')
+
+        const btn = document.getElementById('toggleBtn')
+
+        btn.addEventListener('click', () => {
+
+            sidebar.classList.toggle('collapsed')
+
+            main.classList.toggle('expanded')
+
+        })
+
+    </script>
+
+</body>
+
+</html>

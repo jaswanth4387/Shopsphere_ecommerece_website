@@ -1,0 +1,2459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product_setails</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="static/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/images/favicon-16x16.png">
+    <link rel="manifest" href="static/images/site.webmanifest">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        /* ==========================================================
+                    SHOPSPHERE PRODUCT DETAILS
+========================================================== */
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+            font-family: 'Poppins', sans-serif;
+
+        }
+
+        body {
+
+            background: #f5f7fb;
+
+            color: #071330;
+
+            overflow-x: hidden;
+
+        }
+
+        .container {
+
+            max-width: 1450px;
+
+        }
+
+        /* ==========================================================
+                    BREADCRUMB
+========================================================== */
+
+        .breadcrumb {
+
+            background: white;
+
+            padding: 14px 22px;
+
+            border-radius: 15px;
+
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .06);
+
+        }
+
+        .breadcrumb-item {
+
+            font-weight: 500;
+
+        }
+
+        .breadcrumb-item a {
+
+            color: #2563eb;
+
+            text-decoration: none;
+
+        }
+
+        .breadcrumb-item.active {
+
+            color: #64748b;
+
+        }
+
+        /* ==========================================================
+                    PRODUCT WRAPPER
+========================================================== */
+
+        .product-wrapper {
+
+            background: white;
+
+            border-radius: 28px;
+
+            padding: 40px;
+
+            box-shadow: 0 15px 40px rgba(0, 0, 0, .08);
+
+            animation: fadeUp .5s ease;
+
+        }
+
+        /* ==========================================================
+                    IMAGE CARD
+========================================================== */
+
+        .image-card {
+
+            background: #fafafa;
+
+            border-radius: 22px;
+
+            padding: 30px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            height: 620px;
+
+            border: 1px solid #ececec;
+
+            transition: .35s;
+
+        }
+
+        .image-card:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .08);
+
+        }
+
+        .main-product-image {
+
+            width: 100%;
+
+            max-height: 560px;
+
+            object-fit: contain;
+
+            transition: .4s;
+
+        }
+
+        .main-product-image:hover {
+
+            transform: scale(1.05);
+
+        }
+
+        /* ==========================================================
+                    CATEGORY
+========================================================== */
+
+        .category-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            background: #dbeafe;
+
+            color: #2563eb;
+
+            padding: 8px 18px;
+
+            border-radius: 30px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            margin-bottom: 20px;
+
+        }
+
+        /* ==========================================================
+                    PRODUCT TITLE
+========================================================== */
+
+        .product-title {
+
+            font-size: 42px;
+
+            font-weight: 700;
+
+            color: #071330;
+
+            line-height: 1.3;
+
+            margin-bottom: 18px;
+
+        }
+
+        /* ==========================================================
+                    RATING SUMMARY
+========================================================== */
+
+        .rating-summary {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 28px;
+
+        }
+
+        .stars {
+
+            color: #f59e0b;
+
+            font-size: 22px;
+
+        }
+
+        .rating-number {
+
+            font-size: 22px;
+
+            font-weight: 700;
+
+            color: #071330;
+
+        }
+
+        .review-count {
+
+            color: #64748b;
+
+            font-size: 16px;
+
+        }
+
+        /* ==========================================================
+                    PRICE
+========================================================== */
+
+        .price-section {
+
+            margin-bottom: 30px;
+
+        }
+
+        .current-price {
+
+            font-size: 46px;
+
+            font-weight: 800;
+
+            color: #16a34a;
+
+        }
+
+        /* ==========================================================
+                    STOCK
+========================================================== */
+
+        .stock-box {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+            margin-bottom: 35px;
+
+        }
+
+        .in-stock {
+
+            background: #dcfce7;
+
+            color: #15803d;
+
+            padding: 10px 18px;
+
+            border-radius: 25px;
+
+            font-weight: 600;
+
+        }
+
+        .out-stock {
+
+            background: #fee2e2;
+
+            color: #dc2626;
+
+            padding: 10px 18px;
+
+            border-radius: 25px;
+
+            font-weight: 600;
+
+        }
+
+        .stock-number {
+
+            color: #475569;
+
+            font-weight: 500;
+
+        }
+
+        /* ==========================================================
+                    DESCRIPTION
+========================================================== */
+
+        .product-section {
+
+            margin-bottom: 30px;
+
+        }
+
+        .product-section h4 {
+
+            font-size: 24px;
+
+            font-weight: 700;
+
+            margin-bottom: 15px;
+
+            color: #071330;
+
+        }
+
+        .product-section p {
+
+            color: #64748b;
+
+            line-height: 1.9;
+
+            font-size: 16px;
+
+        }
+
+        /* ==========================================================
+                    ACTION BUTTONS
+========================================================== */
+
+        .action-buttons {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 18px;
+
+            margin-top: 40px;
+
+            margin-bottom: 40px;
+
+        }
+
+        .action-buttons .btn {
+
+            min-width: 220px;
+
+            height: 58px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 17px;
+
+            font-weight: 600;
+
+            border-radius: 15px;
+
+            transition: .35s;
+
+        }
+
+        .add-cart-btn {
+
+            background: #f59e0b;
+
+            border: none;
+
+            color: #071330;
+
+        }
+
+        .add-cart-btn:hover {
+
+            background: #d97706;
+
+            color: white;
+
+            transform: translateY(-3px);
+
+        }
+
+        .buy-btn {
+
+            background: #16a34a;
+
+            border: none;
+
+            color: white;
+
+        }
+
+        .buy-btn:hover {
+
+            background: #15803d;
+
+            color: white;
+
+            transform: translateY(-3px);
+
+        }
+
+        .btn-outline-dark {
+
+            border: 2px solid #071330;
+
+            color: #071330;
+
+        }
+
+        .btn-outline-dark:hover {
+
+            background: #071330;
+
+            color: white;
+
+        }
+
+        /* ==========================================================
+                    PRODUCT HIGHLIGHTS
+========================================================== */
+
+        .highlights {
+
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 18px;
+
+            margin-top: 20px;
+
+        }
+
+        .highlight-box {
+
+            background: #f8fafc;
+
+            border-radius: 18px;
+
+            padding: 22px;
+
+            text-align: center;
+
+            transition: .35s;
+
+            border: 1px solid #e2e8f0;
+
+        }
+
+        .highlight-box:hover {
+
+            background: #fff7ed;
+
+            transform: translateY(-5px);
+
+        }
+
+        .highlight-box i {
+
+            font-size: 28px;
+
+            color: #f59e0b;
+
+            margin-bottom: 12px;
+
+        }
+
+        .highlight-box span {
+
+            display: block;
+
+            font-weight: 600;
+
+            color: #071330;
+
+        }
+
+        /* ==========================================================
+                    ANIMATION
+========================================================== */
+
+        @keyframes fadeUp {
+
+            from {
+
+                opacity: 0;
+
+                transform: translateY(30px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform: translateY(0);
+
+            }
+
+        }
+
+        /* ==========================================================
+                    REVIEWS SECTION
+========================================================== */
+
+        .reviews-section {
+
+            margin-top: 80px;
+
+        }
+
+        .review-header {
+
+            text-align: center;
+
+            margin-bottom: 50px;
+
+        }
+
+        .review-header h2 {
+
+            font-size: 36px;
+
+            font-weight: 700;
+
+            color: #071330;
+
+            margin-bottom: 12px;
+
+        }
+
+        .review-header h2 i {
+
+            color: #f59e0b;
+
+        }
+
+        .review-header p {
+
+            color: #64748b;
+
+            font-size: 17px;
+
+        }
+
+        /* ==========================================================
+                OVERALL RATING
+========================================================== */
+
+        .rating-overview {
+
+            display: grid;
+
+            grid-template-columns: 300px 1fr;
+
+            gap: 40px;
+
+            background: white;
+
+            border-radius: 25px;
+
+            padding: 35px;
+
+            box-shadow: 0 12px 35px rgba(0, 0, 0, .08);
+
+            margin-bottom: 45px;
+
+        }
+
+        .overall-rating {
+
+            text-align: center;
+
+        }
+
+        .overall-rating h1 {
+
+            font-size: 72px;
+
+            font-weight: 800;
+
+            color: #071330;
+
+        }
+
+        .rating-stars {
+
+            color: #f59e0b;
+
+            font-size: 28px;
+
+            margin: 15px 0;
+
+        }
+
+        .overall-rating p {
+
+            color: #64748b;
+
+            font-size: 16px;
+
+        }
+
+        /* ==========================================================
+                RATING BARS
+========================================================== */
+
+        .rating-bars {
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            gap: 18px;
+
+        }
+
+        .rating-row {
+
+            display: grid;
+
+            grid-template-columns: 70px 1fr 70px;
+
+            gap: 18px;
+
+            align-items: center;
+
+        }
+
+        .rating-row span:first-child {
+
+            font-weight: 600;
+
+            color: #071330;
+
+        }
+
+        .progress {
+
+            height: 12px;
+
+            background: #e5e7eb;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+        }
+
+        .progress-bar {
+
+            background: #f59e0b;
+
+            border-radius: 20px;
+
+        }
+
+        /* ==========================================================
+                REVIEW CARD
+========================================================== */
+
+        .review-card {
+
+            background: white;
+
+            border-radius: 22px;
+
+            padding: 30px;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .06);
+
+            margin-bottom: 28px;
+
+            transition: .35s;
+
+        }
+
+        .review-card:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .10);
+
+        }
+
+        /* ==========================================================
+                REVIEW HEADER
+========================================================== */
+
+        .review-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+
+        }
+
+        .review-user {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+        }
+
+        .user-avatar {
+
+            width: 60px;
+
+            height: 60px;
+
+            border-radius: 50%;
+
+            background: #071330;
+
+            color: white;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-size: 26px;
+
+            font-weight: 700;
+
+        }
+
+        .review-user h5 {
+
+            margin: 0;
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+        }
+
+        .review-user small {
+
+            color: #64748b;
+
+        }
+
+        /* ==========================================================
+                VERIFIED PURCHASE
+========================================================== */
+
+        .verified {
+
+            background: #dcfce7;
+
+            color: #15803d;
+
+            padding: 8px 16px;
+
+            border-radius: 25px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+        }
+
+        .verified i {
+
+            margin-right: 6px;
+
+        }
+
+        /* ==========================================================
+                REVIEW STARS
+========================================================== */
+
+        .review-stars {
+
+            color: #f59e0b;
+
+            font-size: 20px;
+
+            margin-bottom: 15px;
+
+        }
+
+        /* ==========================================================
+                REVIEW TITLE
+========================================================== */
+
+        .review-title {
+
+            font-size: 24px;
+
+            font-weight: 700;
+
+            color: #071330;
+
+            margin-bottom: 12px;
+
+        }
+
+        /* ==========================================================
+                REVIEW TEXT
+========================================================== */
+
+        .review-text {
+
+            color: #475569;
+
+            font-size: 16px;
+
+            line-height: 1.8;
+
+            margin-bottom: 22px;
+
+        }
+
+        /* ==========================================================
+                REVIEW IMAGE
+========================================================== */
+
+        .review-image {
+
+            margin-bottom: 22px;
+
+        }
+
+        .review-image img {
+
+            width: 180px;
+
+            height: 180px;
+
+            object-fit: cover;
+
+            border-radius: 18px;
+
+            border: 1px solid #e5e7eb;
+
+            transition: .3s;
+
+        }
+
+        .review-image img:hover {
+
+            transform: scale(1.05);
+
+        }
+
+        /* ==========================================================
+                REVIEW FOOTER
+========================================================== */
+
+        .review-footer {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            align-items: center;
+
+        }
+
+        .helpful-btn {
+
+            border: none;
+
+            background: #f1f5f9;
+
+            color: #071330;
+
+            padding: 10px 18px;
+
+            border-radius: 30px;
+
+            font-weight: 600;
+
+            transition: .3s;
+
+        }
+
+        .helpful-btn:hover {
+
+            background: #f59e0b;
+
+            color: white;
+
+        }
+
+        .helpful-btn i {
+
+            margin-right: 8px;
+
+        }
+
+        /* ==========================================================
+                EMPTY REVIEW
+========================================================== */
+
+        .empty-review {
+
+            background: white;
+
+            border-radius: 22px;
+
+            padding: 70px 30px;
+
+            text-align: center;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .06);
+
+        }
+
+        .empty-review i {
+
+            font-size: 60px;
+
+            color: #cbd5e1;
+
+            margin-bottom: 20px;
+
+        }
+
+        .empty-review h4 {
+
+            font-size: 28px;
+
+            color: #071330;
+
+            margin-bottom: 12px;
+
+        }
+
+        .empty-review p {
+
+            color: #64748b;
+
+            font-size: 16px;
+
+        }
+
+        /* ==========================================================
+                    WRITE REVIEW
+========================================================== */
+
+        .write-review {
+
+            margin-top: 80px;
+
+        }
+
+        .review-form-card {
+
+            background: white;
+
+            padding: 40px;
+
+            border-radius: 25px;
+
+            box-shadow: 0 12px 35px rgba(0, 0, 0, .08);
+
+        }
+
+        .review-form-card h2 {
+
+            font-size: 34px;
+
+            font-weight: 700;
+
+            color: #071330;
+
+        }
+
+        .review-form-card h2 i {
+
+            color: #f59e0b;
+
+            margin-right: 10px;
+
+        }
+
+        .review-form-card p {
+
+            color: #64748b;
+
+            margin-bottom: 25px;
+
+        }
+
+        .form-label {
+
+            font-weight: 600;
+
+            color: #071330;
+
+            margin-bottom: 10px;
+
+        }
+
+        .form-control {
+
+            border-radius: 14px;
+
+            padding: 14px 18px;
+
+            border: 1px solid #dbe3ec;
+
+            transition: .3s;
+
+        }
+
+        .form-control:focus {
+
+            border-color: #f59e0b;
+
+            box-shadow: 0 0 0 .2rem rgba(245, 158, 11, .18);
+
+        }
+
+        textarea.form-control {
+
+            resize: none;
+
+        }
+
+        /* ==========================================================
+                    STAR RATING
+========================================================== */
+
+        .star-rating {
+
+            display: flex;
+
+            flex-direction: row-reverse;
+
+            justify-content: flex-end;
+
+            gap: 8px;
+
+        }
+
+        .star-rating input {
+
+            display: none;
+
+        }
+
+        .star-rating label {
+
+            font-size: 34px;
+
+            color: #cbd5e1;
+
+            cursor: pointer;
+
+            transition: .25s;
+
+        }
+
+        .star-rating label:hover,
+
+        .star-rating label:hover~label {
+
+            color: #f59e0b;
+
+        }
+
+        .star-rating input:checked~label {
+
+            color: #f59e0b;
+
+        }
+
+        /* ==========================================================
+                    SUBMIT BUTTON
+========================================================== */
+
+        .submit-review {
+
+            background: #f59e0b;
+
+            color: #071330;
+
+            border: none;
+
+            border-radius: 15px;
+
+            height: 58px;
+
+            min-width: 240px;
+
+            font-size: 17px;
+
+            font-weight: 600;
+
+            transition: .35s;
+
+        }
+
+        .submit-review:hover {
+
+            background: #d97706;
+
+            color: white;
+
+            transform: translateY(-3px);
+
+        }
+
+        .submit-review i {
+
+            margin-right: 10px;
+
+        }
+
+        /* ==========================================================
+                    RELATED PRODUCTS
+========================================================== */
+
+        .related-products {
+
+            margin-top: 90px;
+
+        }
+
+        .section-header {
+
+            text-align: center;
+
+            margin-bottom: 45px;
+
+        }
+
+        .section-header h2 {
+
+            font-size: 36px;
+
+            font-weight: 700;
+
+            color: #071330;
+
+        }
+
+        .section-header h2 i {
+
+            color: #f59e0b;
+
+            margin-right: 10px;
+
+        }
+
+        .section-header p {
+
+            color: #64748b;
+
+            margin-top: 10px;
+
+        }
+
+        /* ==========================================================
+                    PRODUCT CARD
+========================================================== */
+
+        .related-card {
+
+            background: white;
+
+            border-radius: 22px;
+
+            overflow: hidden;
+
+            box-shadow: 0 12px 30px rgba(0, 0, 0, .07);
+
+            transition: .35s;
+
+            height: 100%;
+
+        }
+
+        .related-card:hover {
+
+            transform: translateY(-8px);
+
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .12);
+
+        }
+
+        .related-image {
+
+            height: 240px;
+
+            background: #fafafa;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+
+        }
+
+        .related-image img {
+
+            width: 100%;
+
+            height: 200px;
+
+            object-fit: contain;
+
+            transition: .35s;
+
+        }
+
+        .related-card:hover .related-image img {
+
+            transform: scale(1.05);
+
+        }
+
+        .related-body {
+
+            padding: 22px;
+
+        }
+
+        .related-category {
+
+            display: inline-block;
+
+            background: #e0f2fe;
+
+            color: #0284c7;
+
+            padding: 6px 12px;
+
+            border-radius: 30px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            margin-bottom: 12px;
+
+        }
+
+        .related-body h5 {
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+            color: #071330;
+
+            min-height: 58px;
+
+        }
+
+        .related-price {
+
+            color: #16a34a;
+
+            font-size: 28px;
+
+            font-weight: 700;
+
+            margin: 18px 0;
+
+        }
+
+        .related-actions {
+
+            display: flex;
+
+            gap: 10px;
+
+        }
+
+        .related-actions .btn {
+
+            flex: 1;
+
+            border-radius: 12px;
+
+            height: 48px;
+
+            font-weight: 600;
+
+        }
+
+        /* ==========================================================
+                    FOOTER
+========================================================== */
+
+        .product-footer {
+
+            margin-top: 80px;
+
+            padding-bottom: 40px;
+
+        }
+
+        .product-footer p {
+
+            color: #64748b;
+
+            font-size: 16px;
+
+        }
+
+        .footer-links a {
+
+            color: #2563eb;
+
+            font-weight: 600;
+
+            text-decoration: none;
+
+        }
+
+        .footer-links a:hover {
+
+            color: #f59e0b;
+
+        }
+
+        /* ==========================================================
+                    ALERTS
+========================================================== */
+
+        .alert {
+
+            border: none;
+
+            border-radius: 18px;
+
+            padding: 18px 22px;
+
+            font-size: 16px;
+
+        }
+
+        .alert-warning {
+
+            background: #fff7ed;
+
+            color: #92400e;
+
+        }
+
+        .alert-info {
+
+            background: #eff6ff;
+
+            color: #1d4ed8;
+
+        }
+
+        /* ==========================================================
+                    RESPONSIVE
+========================================================== */
+
+        @media(max-width:1200px) {
+
+            .highlights {
+
+                grid-template-columns: repeat(2, 1fr);
+
+            }
+
+            .rating-overview {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+        @media(max-width:992px) {
+
+            .product-wrapper {
+
+                padding: 25px;
+
+            }
+
+            .image-card {
+
+                height: auto;
+
+            }
+
+            .main-product-image {
+
+                max-height: 420px;
+
+            }
+
+            .product-title {
+
+                font-size: 34px;
+
+            }
+
+            .current-price {
+
+                font-size: 38px;
+
+            }
+
+            .action-buttons {
+
+                flex-direction: column;
+
+            }
+
+            .action-buttons .btn {
+
+                width: 100%;
+
+            }
+
+            .review-top {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 18px;
+
+            }
+
+            .related-actions {
+
+                flex-direction: column;
+
+            }
+
+        }
+
+        @media(max-width:768px) {
+
+            .product-title {
+
+                font-size: 28px;
+
+            }
+
+            .current-price {
+
+                font-size: 32px;
+
+            }
+
+            .review-form-card {
+
+                padding: 25px;
+
+            }
+
+            .highlights {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .rating-row {
+
+                grid-template-columns: 60px 1fr 55px;
+
+                gap: 10px;
+
+            }
+
+            .user-avatar {
+
+                width: 50px;
+
+                height: 50px;
+
+                font-size: 20px;
+
+            }
+
+            .review-title {
+
+                font-size: 20px;
+
+            }
+
+            .related-image {
+
+                height: 180px;
+
+            }
+
+            .related-image img {
+
+                height: 150px;
+
+            }
+
+        }
+
+        @media(max-width:576px) {
+
+            .container {
+
+                padding-left: 15px;
+
+                padding-right: 15px;
+
+            }
+
+            .product-wrapper {
+
+                padding: 18px;
+
+            }
+
+            .review-form-card {
+
+                padding: 18px;
+
+            }
+
+            .rating-summary {
+
+                flex-wrap: wrap;
+
+            }
+
+            .star-rating {
+
+                justify-content: center;
+
+            }
+
+            .review-header h2,
+
+            .section-header h2 {
+
+                font-size: 28px;
+
+            }
+
+            .review-form-card h2 {
+
+                font-size: 28px;
+
+            }
+
+            .submit-review {
+
+                width: 100%;
+
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container py-5">
+
+        <!-- Breadcrumb -->
+
+        <nav class="mb-4">
+
+            <ol class="breadcrumb">
+
+                <li class="breadcrumb-item">
+
+                    <a href="{{ url_for('home') }}">
+
+                        Home
+
+                    </a>
+
+                </li>
+
+                <li class="breadcrumb-item">
+
+                    {{ product["item_category"] }}
+
+                </li>
+
+                <li class="breadcrumb-item active">
+
+                    {{ product["item_name"] }}
+
+                </li>
+
+            </ol>
+
+        </nav>
+
+
+        <div class="product-wrapper">
+
+            <div class="row g-5">
+
+                <!-- ===================================== -->
+                <!-- PRODUCT IMAGE -->
+                <!-- ===================================== -->
+
+                <div class="col-lg-5">
+
+                    <div class="image-card">
+
+                        <img src="{{ url_for('static', filename='images/' ~ product['item_filename']) }}"
+                            class="main-product-image" alt="{{ product['item_name'] }}">
+
+                    </div>
+
+                </div>
+
+
+                <!-- ===================================== -->
+                <!-- PRODUCT DETAILS -->
+                <!-- ===================================== -->
+
+                <div class="col-lg-7">
+
+                    <span class="category-badge">
+
+                        <i class="fa-solid fa-tag"></i>
+
+                        {{ product["item_category"] }}
+
+                    </span>
+
+
+                    <h1 class="product-title">
+
+                        {{ product["item_name"] }}
+
+                    </h1>
+
+
+                    <!-- Rating Summary -->
+
+                    <div class="rating-summary">
+
+                        <div class="stars">
+
+                            {% set avg = avg_rating|default(0)|float %}
+
+                            {% for i in range(1,6) %}
+
+                            {% if i <= avg %} <i class="fa-solid fa-star"></i>
+
+                                {% else %}
+
+                                <i class="fa-regular fa-star"></i>
+
+                                {% endif %}
+
+                                {% endfor %}
+
+                        </div>
+
+                        <span class="rating-number">
+
+                            {{ "%.1f"|format(avg) }}
+
+                        </span>
+
+                        <span class="review-count">
+
+                            ({{ review_count }} Reviews)
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- Price -->
+
+                    <div class="price-section">
+
+                        <span class="current-price">
+
+                            ₹{{ product["item_price"] }}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- Stock -->
+
+                    <div class="stock-box">
+
+                        {% if product["item_quantity"] > 0 %}
+
+                        <span class="in-stock">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            In Stock
+
+                        </span>
+
+                        <span class="stock-number">
+
+                            {{ product["item_quantity"] }} Available
+
+                        </span>
+
+                        {% else %}
+
+                        <span class="out-stock">
+
+                            <i class="fa-solid fa-circle-xmark"></i>
+
+                            Out of Stock
+
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- Description -->
+
+                    <div class="product-section">
+
+                        <h4>
+
+                            Description
+
+                        </h4>
+
+                        <p>
+
+                            {{ product["item_description"] }}
+
+                        </p>
+
+                    </div>
+
+
+                    <!-- About Product -->
+
+                    <div class="product-section">
+
+                        <h4>
+
+                            About this Product
+
+                        </h4>
+
+                        <p>
+
+                            {{ product["item_about"] }}
+
+                        </p>
+
+                    </div>
+
+                    <!-- ===================================== -->
+                    <!-- ACTION BUTTONS -->
+                    <!-- ===================================== -->
+
+                    <div class="action-buttons">
+
+                        <a href="{{ url_for('addtocart',
+                        itemid=product['itemid'].hex()) }}" class="btn btn-warning btn-lg add-cart-btn">
+
+                            <i class="fa-solid fa-cart-shopping"></i>
+
+                            Add to Cart
+
+                        </a>
+
+                        <a href="{{ url_for('checkout') }}" class="btn btn-success btn-lg buy-btn">
+
+                            <i class="fa-solid fa-bolt"></i>
+
+                            Buy Now
+
+                        </a>
+
+                        <a href="{{ url_for('home') }}" class="btn btn-outline-dark btn-lg">
+
+                            <i class="fa-solid fa-arrow-left"></i>
+
+                            Continue Shopping
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- ===================================== -->
+                    <!-- PRODUCT HIGHLIGHTS -->
+                    <!-- ===================================== -->
+
+                    <div class="highlights">
+
+                        <div class="highlight-box">
+
+                            <i class="fa-solid fa-truck-fast"></i>
+
+                            <span>
+
+                                Fast Delivery
+
+                            </span>
+
+                        </div>
+
+                        <div class="highlight-box">
+
+                            <i class="fa-solid fa-shield-halved"></i>
+
+                            <span>
+
+                                Secure Payment
+
+                            </span>
+
+                        </div>
+
+                        <div class="highlight-box">
+
+                            <i class="fa-solid fa-arrow-rotate-left"></i>
+
+                            <span>
+
+                                Easy Returns
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ====================================================== -->
+        <!-- CUSTOMER REVIEWS -->
+        <!-- ====================================================== -->
+
+        <section class="reviews-section mt-5" id="reviews">
+
+            <div class="review-header">
+
+                <h2>
+
+                    <i class="fa-solid fa-star"></i>
+
+                    Customer Reviews
+
+                </h2>
+
+                <p>
+
+                    See what our customers are saying about this product.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- Rating Overview -->
+
+            <div class="rating-overview">
+
+                <div class="overall-rating">
+
+                    <h1>
+
+                        {{ "%.1f"|format(avg_rating|default(0)|float) }}
+
+                    </h1>
+
+                    <div class="rating-stars">
+
+                        {% set avg = avg_rating|default(0)|float %}
+
+                        {% for i in range(1,6) %}
+
+                        {% if i <= avg %} <i class="fa-solid fa-star"></i>
+
+                            {% else %}
+
+                            <i class="fa-regular fa-star"></i>
+
+                            {% endif %}
+
+                            {% endfor %}
+
+                    </div>
+
+                    <p>
+
+                        Based on {{ review_count }} Reviews
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- Rating Distribution -->
+
+                <div class="rating-bars">
+
+                    {% for star in [5,4,3,2,1] %}
+
+                    <div class="rating-row">
+
+                        <span>
+
+                            {{ star }}
+
+                            <i class="fa-solid fa-star"></i>
+
+                        </span>
+
+                        <div class="progress">
+
+                            <div class="progress-bar" style="width: {{ rating_percentage[star] | default(0) }}%;">
+
+                            </div>
+
+                        </div>
+
+                        <span>
+
+                            {{ rating_percentage[star] | default(0) }}%
+
+                        </span>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+
+
+            <hr class="my-5">
+
+            <!-- ===================================================== -->
+            <!-- CUSTOMER REVIEW CARDS -->
+            <!-- ===================================================== -->
+
+            {% if reviews %}
+
+            {% for review in reviews %}
+
+            <div class="review-card">
+
+                <div class="review-top">
+
+                    <div class="review-user">
+
+                        <div class="user-avatar">
+
+                            {{ review["username"][0]|upper }}
+
+                        </div>
+
+                        <div>
+
+                            <h5>
+
+                                {{ review["username"] }}
+
+                            </h5>
+
+                            <small>
+
+                                {{ review["created_at"].strftime('%d %b %Y') }}
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    {% if review["verified_purchase"] %}
+
+                    <span class="verified">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        Verified Purchase
+
+                    </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- Rating -->
+
+                <div class="review-stars">
+
+                    {% for i in range(1,6) %}
+
+                    {% if i <= review["rating"] %} <i class="fa-solid fa-star"></i>
+
+                        {% else %}
+
+                        <i class="fa-regular fa-star"></i>
+
+                        {% endif %}
+
+                        {% endfor %}
+
+                </div>
+
+
+                {% if review["review_title"] %}
+
+                <h4 class="review-title">
+
+                    {{ review["review_title"] }}
+
+                </h4>
+
+                {% endif %}
+
+
+                <p class="review-text">
+
+                    {{ review["review_text"] }}
+
+                </p>
+
+
+                {% if review["review_image"] %}
+
+                <div class="review-image">
+
+                    <img src="{{ url_for('static',
+                filename='review_images/' ~ review['review_image']) }}" alt="Review Image">
+
+                </div>
+
+                {% endif %}
+
+
+                <div class="review-footer">
+
+                    <button class="helpful-btn">
+
+                        <i class="fa-regular fa-thumbs-up"></i>
+
+                        Helpful
+
+                        ({{ review["helpful_count"] }})
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+            {% else %}
+
+            <div class="empty-review">
+
+                <i class="fa-regular fa-message"></i>
+
+                <h4>
+
+                    No Reviews Yet
+
+                </h4>
+
+                <p>
+
+                    Be the first customer to review this product.
+
+                </p>
+
+            </div>
+
+            {% endif %}
+
+
+
+            <!-- ===================================================== -->
+            <!-- WRITE REVIEW -->
+            <!-- ===================================================== -->
+
+            <section class="write-review mt-5">
+
+                <div class="review-form-card">
+
+                    <h2>
+
+                        <i class="fa-solid fa-pen"></i>
+
+                        Write a Review
+
+                    </h2>
+
+                    <p>
+
+                        Share your experience with other customers.
+
+                    </p>
+
+                    <hr>
+
+
+                    {% if "userid" not in session %}
+
+                    <div class="alert alert-warning">
+
+                        <i class="fa-solid fa-user-lock"></i>
+
+                        Please
+
+                        <a href="{{ url_for('login',role='user') }}">
+
+                            Login
+
+                        </a>
+
+                        to write a review.
+
+                    </div>
+
+
+                    {% elif not can_review %}
+
+                    <div class="alert alert-info">
+
+                        <i class="fa-solid fa-circle-info"></i>
+
+                        You can review this product only after purchasing it.
+
+                    </div>
+
+
+                    {% else %}
+
+                    <form action="{{ url_for('add_review',
+                itemid=product['itemid'].hex()) }}" method="POST" enctype="multipart/form-data">
+
+
+                        <!-- Rating -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+
+                                Overall Rating
+
+                            </label>
+
+                            <div class="star-rating">
+
+                                {% for i in range(5,0,-1) %}
+
+                                <input type="radio" id="star{{i}}" name="rating" value="{{i}}" required>
+
+                                <label for="star{{i}}">
+
+                                    <i class="fa-solid fa-star"></i>
+
+                                </label>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Review Title -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+
+                                Review Title
+
+                            </label>
+
+                            <input type="text" class="form-control" name="review_title" maxlength="100"
+                                placeholder="Excellent Product">
+
+                        </div>
+
+
+                        <!-- Review -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+
+                                Your Review
+
+                            </label>
+
+                            <textarea class="form-control" rows="6" name="review_text"
+                                placeholder="Write your review..." required></textarea>
+
+                        </div>
+
+
+                        <!-- Upload Image -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+
+                                Upload Image (Optional)
+
+                            </label>
+
+                            <input type="file" class="form-control" name="review_image" accept=".jpg,.jpeg,.png,.webp">
+
+                        </div>
+
+
+                        <button class="btn btn-warning btn-lg submit-review">
+
+                            <i class="fa-solid fa-paper-plane"></i>
+
+                            Submit Review
+
+                        </button>
+
+                    </form>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+            <!-- ===================================================== -->
+            <!-- RELATED PRODUCTS -->
+            <!-- ===================================================== -->
+
+            <section class="related-products mt-5">
+
+                <div class="section-header">
+
+                    <h2>
+
+                        <i class="fa-solid fa-store"></i>
+
+                        You May Also Like
+
+                    </h2>
+
+                    <p>
+
+                        Explore similar products from the same category.
+
+                    </p>
+
+                </div>
+
+                <div class="row g-4">
+
+                    {% if related_products %}
+
+                    {% for item in related_products %}
+
+                    <div class="col-lg-3 col-md-6">
+
+                        <div class="related-card">
+
+                            <div class="related-image">
+
+                                <img src="{{ url_for('static', filename='images/' ~ item['item_filename']) }}"
+                                    alt="{{ item['item_name'] }}">
+
+                            </div>
+
+                            <div class="related-body">
+
+                                <span class="related-category">
+
+                                    {{ item["item_category"] }}
+
+                                </span>
+
+                                <h5>
+
+                                    {{ item["item_name"] }}
+
+                                </h5>
+
+                                <div class="related-price">
+
+                                    ₹{{ item["item_price"] }}
+
+                                </div>
+
+                                <div class="related-actions">
+
+                                    <a href="{{ url_for('productdetails',
+                                itemid=item['itemid'].hex()) }}" class="btn btn-outline-primary">
+
+                                        <i class="fa-solid fa-eye"></i>
+
+                                        View
+
+                                    </a>
+
+                                    <a href="{{ url_for('addtocart',
+                                itemid=item['itemid'].hex()) }}" class="btn btn-warning">
+
+                                        <i class="fa-solid fa-cart-shopping"></i>
+
+                                        Cart
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                    {% else %}
+
+                    <div class="col-12">
+
+                        <div class="alert alert-light text-center p-5">
+
+                            <i class="fa-solid fa-box-open fa-3x mb-3"></i>
+
+                            <h4>
+
+                                No Related Products Found
+
+                            </h4>
+
+                            <p>
+
+                                More products will be added soon.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+            <!-- ===================================================== -->
+            <!-- FOOTER -->
+            <!-- ===================================================== -->
+
+            <footer class="product-footer mt-5">
+
+                <hr>
+
+                <div class="text-center">
+
+                    <p>
+
+                        Thank you for shopping with
+
+                        <strong>
+
+                            ShopSphere
+
+                        </strong>
+
+                    </p>
+
+                    <div class="footer-links">
+
+                        <a href="{{ url_for('home') }}">
+
+                            Continue Shopping
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </footer>
+
+    </div>
+
+    <!-- Bootstrap JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Font Awesome JS -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js"></script>
+
+</body>
+
+</html> 
