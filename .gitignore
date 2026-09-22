@@ -1,33 +1,73 @@
+# ==========================
 # Python
+# ==========================
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
 
+# ==========================
 # Virtual Environment
+# ==========================
 venv/
+.venv/
+env/
+
+# ==========================
+# Environment Variables
+# ==========================
 .env
+.env.*
 
-# VS Code
+# ==========================
+# Flask Session
+# ==========================
+flask_session/
+
+# ==========================
+# Uploads (optional)
+# ==========================
+uploads/
+
+# ==========================
+# IDE
+# ==========================
 .vscode/
+.idea/
 
-# Python cache
+# ==========================
+# Testing
+# ==========================
 .pytest_cache/
+.coverage
+htmlcov/
 
-# macOS
-.DS_Store
-
-# Windows
-Thumbs.db
-
+# ==========================
 # Logs
+# ==========================
 *.log
 
-# Database backups (optional)
+# ==========================
+# OS Files
+# ==========================
+.DS_Store
+Thumbs.db
+
+# ==========================
+# Database Backups
+# ==========================
 *.sql
+*.sqlite3
 
-# Environment variables
-.env
-
-# Temporary files
+# ==========================
+# Temporary Files
+# ==========================
 *.tmp
+*.bak
+*.swp
+
+# ==========================
+# Build Artifacts
+# ==========================
+build/
+dist/
+*.egg-info/
