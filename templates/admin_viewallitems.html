@@ -806,7 +806,7 @@
 
                 <div class="product-card">
 
-                    <img src="/static/images/{{i[7]}}">
+                    <img src="{{ url_for('static', filename='images/' ~ i[7]) }}">
 
 
                     <div class="category-badge">

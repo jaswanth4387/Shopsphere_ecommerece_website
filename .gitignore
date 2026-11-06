@@ -1,73 +1,38 @@
-# ==========================
 # Python
-# ==========================
 __pycache__/
 *.py[cod]
 *$py.class
 
-# ==========================
-# Virtual Environment
-# ==========================
+# Virtual environments
 venv/
 .venv/
 env/
 
-# ==========================
-# Environment Variables
-# ==========================
+# Secrets - never commit these
 .env
 .env.*
+!.env.example
 
-# ==========================
-# Flask Session
-# ==========================
-flask_session/
-
-# ==========================
-# Uploads (optional)
-# ==========================
-uploads/
-
-# ==========================
 # IDE
-# ==========================
 .vscode/
 .idea/
 
-# ==========================
-# Testing
-# ==========================
+# Local uploads (production uses Cloudinary)
+static/review_images/
+uploads/
+
+# Testing / logs / OS
 .pytest_cache/
 .coverage
 htmlcov/
-
-# ==========================
-# Logs
-# ==========================
 *.log
-
-# ==========================
-# OS Files
-# ==========================
 .DS_Store
 Thumbs.db
 
-# ==========================
-# Database Backups
-# ==========================
-*.sql
-*.sqlite3
-
-# ==========================
-# Temporary Files
-# ==========================
+# Temp
 *.tmp
 *.bak
 *.swp
-
-# ==========================
-# Build Artifacts
-# ==========================
 build/
 dist/
 *.egg-info/

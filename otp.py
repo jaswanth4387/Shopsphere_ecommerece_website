@@ -1,8 +1,7 @@
-import random
+import secrets
+import string
+
+
 def genotp():
-    otp=''
-    u_l=[chr(i) for i in range(ord('A'),ord('Z')+1) ]
-    s_l=[chr(i) for i in range(ord('a'),ord('z')+1) ]
-    for i in range(2):
-        otp=otp+random.choice(u_l)+str(random.randint(0,9))+random.choice(s_l)
-    return otp
+    """Return a cryptographically random 6-digit OTP."""
+    return "".join(secrets.choice(string.digits) for _ in range(6))
